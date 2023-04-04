@@ -8,5 +8,4 @@ export const font ={
     poppinsregular:"Poppins-Regular",
     poppinsmedium:'Poppins-Medium'
 
-
 }

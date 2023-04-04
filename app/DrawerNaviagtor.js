@@ -8,7 +8,7 @@ import {
 
 import Home from './screens/Home';
 import Scanner from './screens/Scanner';
-import ResultScreen from './screens/ResultScreen';
+import { getData } from './api/client';
 import HistoryScreen from './screens/HistoryScreen';
 import { useLogin } from './context/LoginProvider';
 
@@ -16,6 +16,21 @@ const Drawer = createDrawerNavigator();
 
 const CustomDrawer = props => {
   const { setIsLoggedIn, profile } = useLogin();
+
+  const logout = () => {
+    getData('api/mobilelogout')
+    .then(result => {
+      console.log(result);
+      let data = result.data;
+      if(data.state == 200){
+        setIsLoggedIn(false);
+      }else {
+        console.log(result);
+      }
+    })
+  }
+  
+  
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView {...props}>
@@ -25,13 +40,13 @@ const CustomDrawer = props => {
             justifyContent: 'space-between',
             alignItems: 'center',
             padding: 20,
-            backgroundColor: '#f6f6f6',
+            backgroundColor: '#24a8ff',
             marginBottom: 20,
           }}
         >
           <View>
-            <Text>{profile.fullname}</Text>
-            <Text>{profile.email}</Text>
+            <Text style={{color: 'white', fontWeight: '700', fontSize: 18}}>{profile.name}</Text>
+            <Text style={{color: 'white'}} >{profile.email}</Text>
           </View>
           <Image
             source={{
@@ -50,10 +65,10 @@ const CustomDrawer = props => {
           right: 0,
           left: 0,
           bottom: 50,
-          backgroundColor: '#f6f6f6',
+          backgroundColor: '#d6d6d6',
           padding: 20,
         }}
-        onPress={() => setIsLoggedIn(false)}
+        onPress={() => logout()}
       >
         <Text>Log Out</Text>
       </TouchableOpacity>
@@ -62,7 +77,7 @@ const CustomDrawer = props => {
 };
 
 const DrawerNavigator = () => {
-  const [showResultScreen, setShowResultScreen] = useState(false);
+  // const [showResultScreen, setShowResultScreen] = useState(false);
   return (
     <Drawer.Navigator
       screenOptions={{
@@ -75,13 +90,11 @@ const DrawerNavigator = () => {
         headerTitle: '',
       }}
       drawerContent={props => <CustomDrawer {...props} />}
-      initialRouteName={showResultScreen ? 'ResultScreen' : 'Home'}
+      initialRouteName='Home'
     >
       <Drawer.Screen component={Home} name='Home' />
       <Drawer.Screen component={Scanner} name='Scanner' />
-      {showResultScreen && (
-        <Drawer.Screen component={ResultScreen} name='ResultScreen' />
-      )}
+      {/* <Drawer.Screen component={ResultScreen} name='ResultScreen' /> */}
       <Drawer.Screen component={HistoryScreen} name='HistoryScreen' />
     </Drawer.Navigator>
   );

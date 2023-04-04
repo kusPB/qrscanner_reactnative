@@ -12,15 +12,16 @@ const FormSubmitButton = ({ title, submitting, onPress }) => {
       onPress={!submitting ? onPress : null}
       style={[styles.container, { backgroundColor }]}
     >
-      <Text style={{ fontSize: 18, color: '#fff' }}>{title}</Text>
+      <Text style={{ fontSize: 16, color: '#fff' }}>{title}</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: 45,
+    padding:7,
     borderRadius: 8,
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -30,14 +30,14 @@ const FormInput = props => {
 const styles = StyleSheet.create({
   input: {
     height: 35,
-    fontSize: 16,
+    fontSize: 15,
     paddingLeft: 10,
+    margin: 3
   },
   input_border: {
-    padding: 5,
     borderWidth: 1,
     borderColor: color.color_primary,
-    marginBottom: 20,
+    marginBottom: 10,
     borderRadius: 8,
   }
 });

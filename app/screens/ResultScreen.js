@@ -36,7 +36,6 @@ const ResultScreen = ({route, navigation}) => {
               <View style={{padding: 10}}></View>
               <Button title={'History'}  onPress={() => {navigation.navigate('HistoryScreen');}} />
             </Row>
-            <Row></Row>
           </Grid>
         
       </View>
@@ -50,8 +49,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   qrCard: {
-    // flex: 1,
-    // alignItems: "stretch",
     margin: 10,
     paddingHorizontal: 15,
     paddingVertical: 10,

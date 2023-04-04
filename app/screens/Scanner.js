@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { StyleSheet, Button } from 'react-native';
+import { Box, Center, VStack, View, Text } from 'native-base';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-import { StackActions } from '@react-navigation/native';
 import {color} from '../common/color';
 import { postData } from '../api/client';
 import { useLogin } from '../context/LoginProvider';
+import Dialog from "../components/Dialog";
 
 
 export default function Scanner({navigation}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const [isshow, setIsshow] = useState(false);
+  const [detailInfo, setDetailInfo] = useState({
+    content: '',
+    id: 0, 
+    date:''
+  });
   const {location} = useLogin();
   useEffect(() => {
     (async () => {
@@ -18,8 +25,13 @@ export default function Scanner({navigation}) {
     })();
   }, []);
 
+  const closeDetail = () => {
+    setIsshow(false);
+  }
+
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
+    console.log(data);
     let str = '';
     if(data.includes('kus_')){
       let arr = data.split('_');
@@ -28,9 +40,18 @@ export default function Scanner({navigation}) {
         qrInfo: str,
         location: location
       }).then(result => {
+        console.log(result.data)
         let data = result.data;
         if(data.state == 200){
-          navigation.navigate('ResultScreen', {qr: data.msg});
+          const d = new Date();
+          let text = d.toISOString();
+          let arr = text.split('.');
+          setIsshow(true);
+          setDetailInfo({
+            content: data.msg,
+            id: 0, 
+            date:arr[0].replace('T', ' ')
+          })
         }else {
           alert(data.msg);
         }
@@ -57,29 +78,27 @@ export default function Scanner({navigation}) {
   }
 
   return (
-    <View style={styles.container}>
-      <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={StyleSheet.absoluteFillObject}
-      />
-      <View style={[StyleSheet.absoluteFillObject, {paddingTop:15} ]}>
-        <Text style={styles.title}>
-            QR Scanner
-        </Text>
-      </View>
-      {scanned && 
-      <>
-        <View style={styles.buttonlist}>
-            <Button title={'Tap to Scan Again'}  onPress={() => setScanned(false)} />
+    
+    <Box m={5} w={'90%'} h={"90%"} flex={1} >
+      <Dialog isShow={isshow} data={detailInfo} onClose={closeDetail}></Dialog>
+      <VStack>
+        <View w={'90%'} h={"70%"} borderRadius={19} borderColor='gray.300' borderWidth={1}  bg='white' m='auto'>
+            <BarCodeScanner
+              onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+              style={[StyleSheet.absoluteFillObject, styles.barcode]}
+            />
+            <View width={'100%'} height={'100%'} borderWidth={28} borderRadius={15} borderColor={'#fff'} style={StyleSheet.absoluteFillObject}  ></View>
+            <View style={styles.buttonlist}  h='100%' >
+            {scanned && <Button title={'Tap to Scan Again'}  onPress={() => setScanned(false)} /> }
+            </View>
         </View>
-        {/* <View style={{margin:15}} /> 
-        <View style={styles.buttonlist}>
-            <Button title={'QR History'} onPress={() => goHistory} />
-        </View> */}
-        
-      </>
-      }
-    </View>
+        <View w={'90%'} m='auto' >
+          <Center>
+            <Button title={'Go to History'}  onPress={() => navigation.navigate('HistoryScreen')} />
+          </Center>
+        </View>
+      </VStack>
+    </Box>
   );
 }
 
@@ -92,12 +111,18 @@ const styles = StyleSheet.create({
   },
   buttonlist: {
     borderColor: 'white',
-    borderWidth: 2,
+    justifyContent: 'center',
+    marginLeft: 25,
+    marginRight: 25
   },
   title: {
     fontSize:22,
     color: color.color_usersap,
     textAlign: 'center',
     fontWeight: 'bold',
+  },
+  barcode:{
+    borderRadius: 10,
+    margin: 10
   }
 });

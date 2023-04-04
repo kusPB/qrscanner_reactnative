@@ -3,6 +3,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const client = axios.create({ baseURL: 'http://vipinpandey.com/adminpanel/' })
+// const client = axios.create({ baseURL: 'http://10.10.18.66/Codeigniter-User-Panel-Management-master/' })
 const headers = {
     "Accept": "application/json",
     "Content-Type": "application/json",
@@ -37,8 +38,8 @@ export const postData = async(url, data) => {
     return client.post(url, data, {headers:headersData});
 }
 
-export const getData = async(url, params) => {
-    console.log(params);
+export const getData = async(url) => {
+    console.log(url);
     return client.get(url);
 }
 

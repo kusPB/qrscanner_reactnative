@@ -1,5 +1,5 @@
 export const color = {
-  color_primary : "#2F80ED",//"#536DFE",
+  color_primary : "#24a8ff", 
   color_error : "#FF5C93",
   color_warning : "#FFC260",
   color_success : "#3CD4A0",
@@ -13,7 +13,7 @@ export const color = {
   color_placeholder: '#B5BBC9',
   color_green: '#119536',
   color_lightblack: '#292929',
-  color_bottomtab: '#2F80ED',
+  color_blue: '#2F80ED',
   color_bottominactive: '#636363',
   color_usersap: '#010101',
   color_gettext: '#485068',

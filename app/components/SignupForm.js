@@ -108,21 +108,22 @@ const SignupForm = ({ navigation }) => {
       })
       .catch(error => {
         console.log(error);
-        toast.show({
-          placement: "top",
-          render: () => {
-            return <Box bg={color.color_error} 
-                    _text={{
-                      fontSize: "md",
-                      fontWeight: "medium",
-                      color: "warmGray.50",
-                      letterSpacing: "lg"
-                    }}
-                    px="2" py="1" rounded="md" mb={5}>
-                    {'Can\'t find server!'}
-                  </Box>;
-          }
-        });
+        alert(error.toString());
+        // toast.show({
+        //   placement: "top",
+        //   render: () => {
+        //     return <Box bg={color.color_error} 
+        //             _text={{
+        //               fontSize: "md",
+        //               fontWeight: "medium",
+        //               color: "warmGray.50",
+        //               letterSpacing: "lg"
+        //             }}
+        //             px="2" py="1" rounded="md" mb={5}>
+        //             {'Can\'t find server!'}
+        //           </Box>;
+        //   }
+        // });
       })
 
     // if (res.data.success) {

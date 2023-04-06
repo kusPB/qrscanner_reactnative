@@ -29,10 +29,9 @@ const FormInput = props => {
 
 const styles = StyleSheet.create({
   input: {
-    height: 35,
     fontSize: 15,
     paddingLeft: 10,
-    margin: 3
+    margin: 2
   },
   input_border: {
     borderWidth: 1,

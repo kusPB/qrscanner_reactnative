@@ -37,7 +37,6 @@ const ResultScreen = ({route, navigation}) => {
               <Button title={'History'}  onPress={() => {navigation.navigate('HistoryScreen');}} />
             </Row>
           </Grid>
-        
       </View>
   );
   

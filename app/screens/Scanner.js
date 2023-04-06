@@ -79,15 +79,15 @@ export default function Scanner({navigation}) {
 
   return (
     
-    <Box m={5} w={'90%'} h={"90%"} flex={1} >
+    <Box m={2} flex={1} >
       <Dialog isShow={isshow} data={detailInfo} onClose={closeDetail}></Dialog>
       <VStack>
-        <View w={'90%'} h={"70%"} borderRadius={19} borderColor='gray.300' borderWidth={1}  bg='white' m='auto'>
+        <View w={'100%'} borderRadius={19} borderColor='gray.300' borderWidth={1}  bg='white' m='auto'>
             <BarCodeScanner
               onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
               style={[StyleSheet.absoluteFillObject, styles.barcode]}
             />
-            <View width={'100%'} height={'100%'} borderWidth={28} borderRadius={15} borderColor={'#fff'} style={StyleSheet.absoluteFillObject}  ></View>
+            <View width={'100%'} height={'100%'} borderWidth={2} borderRadius={15} bg='#0002' borderColor={'#fff5'} style={StyleSheet.absoluteFillObject}  ></View>
             <View style={styles.buttonlist}  h='100%' >
             {scanned && <Button title={'Tap to Scan Again'}  onPress={() => setScanned(false)} /> }
             </View>

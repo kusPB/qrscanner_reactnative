@@ -10,8 +10,8 @@ import FormSubmitButton from './FormSubmitButton';
 const LoginForm = () => {
   const { setIsLoggedIn, setProfile } = useLogin();
   const [userInfo, setUserInfo] = useState({
-    email: 'alosa@gmail.com',
-    password: '123123',
+    email: '',
+    password: '',
   });
 
   const [error, setError] = useState('');
@@ -50,6 +50,10 @@ const LoginForm = () => {
             updateError(data.msg, setError);
           }
         })
+        .catch(error => {
+          console.log(error);
+          alert(error)
+        });
         // console.log('6');
       } catch(error)  {
         console.log(error);
